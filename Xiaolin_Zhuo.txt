@@ -1,0 +1,8 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf210
+{\fonttbl\f0\fswiss\fcharset0 ArialMT;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720
+
+\f0\fs30 \cf0 There\'92s a NYTimes article questioning the way children are raised in the U.S. Parents are overprotective and keep their children inside the house all the time even though the parents themselves grew up wandering around in the neighborhood or the woods and the crime rate has declined dramatically since the time when the parents were growing up. So sometimes the good-quality statistics are just not convincing as they run counter to what people want to believe?}
