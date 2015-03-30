@@ -1,0 +1,5 @@
+> 3-2-15
+
+Today I had to teach first-graders about the states within the Midwest. Why the first-graders are learning about the Midwest states specifically? I have no idea. More importantly, what exactly are the states within the Midwest? My co-teacher and I found a wide variety of sets of states that were categorized within the Midwest. Apparently, Nate Silver, et al. did a study on this analyzing percentage of survey respondents who believe which states are within the Midwest. Crazy to believe that there are no states in the visualization that 100% of the population believe are in the Midwest. The study uses a SurveyMonkey audience that mostly targets people within the U.S. I wonder how responses would differ if the survey respondent population was a global one. What is the minimum percentage of respondents required such that the general consensus of the U.S. population is that the specific state is within the Midwest?
+
+Link to study: http://fivethirtyeight.com/datalab/what-states-are-in-the-midwest/
