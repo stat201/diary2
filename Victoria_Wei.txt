@@ -1,0 +1,5 @@
+March 28, 2015
+
+http://www.moonshadowmobile.com/2015/03/ethnicity-in-the-us-in-3d/
+
+I was looking at some of the graphics this article had on ethnicity in the US in 3D and it is probably one of my least favorite graphics. I don’t understand, at all why doing it in 3D was necessary, instead of using a heatmap or density plot on a map. I also don’t understand why density was represented using spheres and also why the view on the maps were tilted!
