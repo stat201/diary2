@@ -1,0 +1,74 @@
+3/20/2015
+I went back to the earlier Tokyo-Michelin-Guide webscraping and significantly refined it to add additional information.  This small investment into my webscraping skills is really paying off!  Below the code for reference. 
+I still cannot get the “description” variable right, but I am hoping that tomorrow I can troubleshoot and fix that.
+
+rm(list=ls())
+setwd ("C:/Users/Tobias/Desktop/WORK/")
+require(rvest)
+require(XML)
+
+webpages <- paste("http://gm.gnavi.co.jp/restaurant/list/tokyo/all_area/all_small_area/all_food/all_star/p",1:55,"/",sep="")
+
+w <- html(webpages[1])
+
+Cuisine <- w %>% html_nodes("#restaurantList .cuisine") %>% html_text()
+Name <- w %>% html_nodes("#restaurantList strong") %>% html_text()
+Link <- w %>% html_nodes("#restaurantList a") %>% html_attr("href")
+Area <- w %>% html_nodes("#restaurantList .area") %>% html_text()
+Rating <- w %>% html_nodes("#restaurantList .rating span") %>% html_text()
+Comfort <- w %>% html_nodes("#restaurantList .amenity_deux span") %>% html_text()
+
+
+
+for (i in 2:length(webpages)){
+  webpage <- html(webpages[i])
+  Cuisine <- append(Cuisine, webpage %>% html_nodes("#restaurantList .cuisine") %>% html_text())
+  Area <- append(Area, webpage %>% html_nodes("#restaurantList .area") %>% html_text())
+  Comfort <- append(Comfort, webpage %>% html_nodes("#restaurantList .amenity_deux span") %>% html_text())
+  Name <- append(Name, webpage %>% html_nodes("#restaurantList strong") %>% html_text())
+  Link <- append(Link, webpage %>% html_nodes("#restaurantList a") %>% html_attr("href"))
+  Rating <- append(Rating,webpage %>% html_nodes("#restaurantList .rating span") %>% html_text())
+}
+
+name <- sub("NEW","",Name)
+Link <- paste("http://gm.gnavi.co.jp",Link, sep="")
+df <- data.frame(Cuisine,Name,Link,Area,Rating,Comfort,stringsAsFactors=FALSE)
+
+df$Description <- NA
+df$Price <- NA
+df$Hours <- NA
+df$Holidays <- NA
+df$Telephone <- NA
+df$Address <- NA
+
+for (i in 1:length(df$Link)){
+  w2 <- html(df$Link[i])
+  df$Price[i] <- w2 %>% html_nodes("#rInfo .price dd") %>% html_text()
+  df$Hours[i] <- w2 %>% html_nodes("#rInfo .hours dd") %>% html_text()
+  h <- w2 %>% html_nodes("#rInfo .holiday dd") %>% html_text()
+  df$Holidays[i] <- paste(h," ")
+  df$Telephone[i] <- w2 %>% html_nodes("#rInfo .tel span") %>% html_text()
+  df$Address[i] <- w2 %>% html_nodes("#rInfo .address dd") %>% html_text()
+  descript <- NA
+  descript <- w2 %>% html_nodes(".description .px14") %>% html_text()
+  df$Description <- descript[1]
+}
+
+#df$Hours <- sub("Opening hours, last orders","",df$Hours)
+#df$Address <- sub("Address","",df$Address)
+#df$Telephone <- sub("TEL","",df$Telephone)
+#df$Holidays <- sub("Annual and weekly closing","",df$Holidays)
+#df$Price <- sub("Price","",df$Price)
+#df$Price <- sub("'\\'","",df$Price)
+
+require(foreign)
+write.csv(df,file="Tokyo_Michelin_expanded.csv")
+
+
+
+3/21/2015
+That “Description” variable that I couldn’t get right yesterday actually proved how a night of sleep can be incredibly helpful.  I spent hours yesterday trying to figure it out.  One brief look this morning showed me how I made an incredibly simple mistake.  I did not index the description variable df$Description <- descript[1] should have been df$Description[i] <- descript[1]. That was literally all I had wrong.   I cannot believe it.
+
+3/22/2015
+This should be the last entry in the “Tokyo Dining” category for now.  After I finished the data scraping / wrangling yesterday, I uploaded the file to share with my wife (who is supposed to let me know where she would like to dine).  When I woke up this morning, I realized that I had used Google drive for sharing and that I could turn my table into a google fusion table and map all the restaurants.  Below is a screenshot of the final result, of which I am very proud! (If anybody wants a screenshot or even access to this map, let me know.  I'm happy to share an invite).
+ 
