@@ -1,0 +1,42 @@
+
+3/13
+DQC, post 1:
+
+Weinstein et al’s “Dynamic Quantum Clustering” http://arxiv.org/abs/0908.2644 is a way of looking for meaningful structure in high-dimensional data. The algorithm itself involves “sharpening” high-dimensional data by various steps, all inspired by (but not actually based in) quantum mechanics. But as Weinstein’s paper touting his algorithm shows, the insights that he draws involve not just using this algorithm, but a willingness to take various ad-hoc steps in approaching the data.
+
+So how does the algorithm work? Here are the basic steps:
+
+1. Normalize all dimensions using SVD decomposition, and reduce to a manageable number of dimensions (apparently, generally around 5-8 suffice to retain the most important structure).
+2. Build a distribution by adding a bunch of gaussian blobs centered at each point. Note that this depends on the choice of σ.
+3. Find a Hamiltonian (energy potential landscape) for which the given distribution is a solution. This already sharpens the results from 2, as well as reducing the dependence on σ. (Actually, to simplify computation, the lowest eigenvalues of the matrix are dropped when finding this Hamiltonian.)
+4. Use quantum operators to evolve all the original data points as if they were independent particles in this energy landscape. This involves a choice of “quantum tunneling scale” h; high tunneling can help balance out a “sharp” σ, allowing useful evolution without blurring out important features.
+5. “collapse” these evolved “wave functions” back into points by taking the mean of each.
+6. Iterate steps 2-5 as desired.
+
+The end result is that points tend to fall into relatively few clusters. It is perhaps analogous to dissecting the data by boiling away the flesh to find the bones underneath.
+
+3/14
+DQC part 2:
+
+What does this algorithm offer? Well, on one level, we can consider it as just a new way of clustering data. If you iterate enough times, the data will naturally fall into clearly-separated clusters, compact bunches which can each be described by a mean and a covariance. Each original data point will have moved to one of these clusters, so its classification is clear.
+
+Just as a way of clustering, this is an interesting algorithm. Mathematical tricks can be borrowed from physics to make all of the steps reasonably parallel and fast. Of course, “reasonably” here is relative. This clustering method involves iterating over large data sets, finding the eigenvalues of large matrices, and inverting reduced but still nontrivial matrices; so it’s never going to be competitive in processing power with a simple shortcut such as k-means. Still, in finding not just the identity but the internal covariance structure of each cluster, it is preserving more information than most clustering algorithms.
+
+
+3/15
+DQC part 3:
+
+But as the paper “Analyzing Big Data with Dynamic Quantum Clustering” http://arxiv.org/abs/1310.2700 shows, the real strength of this algorithm is as part of a process of visualization in which DQC itself is a key tool but not the only one. In this paper, there are several other tricks going on:
+
+-
+-Graphing normalized averaged raw data over clusters and sub clusters, to see if structure within or across clusters can be reduced to constant factors
+-Coloring clusters and graphing data in terms of point of origin (for the pigment and earthquake data)
+-Reduction of the data set to only the “interesting” points (those in certain clusters)
+-Separation of clusters into “good” and “bad” using scientific criteria; plotting the “bad” clusters to find faulty data (detector elements)
+-Manual choice of which SVD dimensions to graph data
+-Reduction of original data dimensions to those selected to have highest values in the SVD dimensions showing best post-DQC structure.
+-Flipping the same multi-dimensional time series to divide it by stocks or by days, in order to look for different kinds of structure; then using one clustering to inform graphing for the other clustering.
+
+In other words, there were a number of ad-hoc decisions made, with frequent graphing, to find more about structure than just a clustering algorithm would have found.
+
+
